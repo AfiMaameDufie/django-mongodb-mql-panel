@@ -25,10 +25,10 @@ source venv/bin/activate
 pip install django-mongodb-backend django-mongodb-extensions
 ```
 
-3. Set your MongoDB connection string:
+3. Create a `.env` file with your MongoDB connection string:
 
 ```bash
-export MONGODB_URI="mongodb+srv://<username>:<password>@<cluster>.mongodb.net/worldcup?retryWrites=true&w=majority"
+MONGODB_URI="mongodb+srv://<username>:<password>@<cluster>.mongodb.net/worldcup?retryWrites=true&w=majority"
 ```
 
 4. Run migrations and load data:
