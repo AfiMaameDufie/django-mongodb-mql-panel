@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.backends.legacy:build"
+
+[project]
+name = "django-mongodb-world-cup"
+version = "0.1.0"
+description = "World Cup 2026 analytics app showcasing the MongoDB MQL panel for Django Debug Toolbar"
+requires-python = ">=3.13"
+dependencies = [
+    "django>=6.0",
+    "django-mongodb-backend",
+    "django-mongodb-extensions",
+    "django-debug-toolbar",
+    "python-dotenv",
+]
