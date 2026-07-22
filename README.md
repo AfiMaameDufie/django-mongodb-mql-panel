@@ -13,8 +13,8 @@ Configure the MongoDB Query Language (MQL) panel in Django MongoDB Extensions to
 1. Clone the repo and create a virtual environment:
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/django-mongodb-mql-panel.git
-cd django-mongodb-mql-panel
+git clone https://github.com/aclark4life/django-mongodb-world-cup.git
+cd django-mongodb-world-cup
 python -m venv venv
 source venv/bin/activate
 ```
@@ -22,8 +22,16 @@ source venv/bin/activate
 2. Install dependencies:
 
 ```bash
-pip install django-mongodb-backend django-mongodb-extensions
+pip install -e .
 ```
+
+This installs all required packages defined in `pyproject.toml`:
+
+- `django>=6.0`
+- `django-mongodb-backend`
+- `django-mongodb-extensions`
+- `django-debug-toolbar`
+- `python-dotenv`
 
 3. Create a `.env` file with your MongoDB connection string:
 
