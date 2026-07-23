@@ -1,0 +1,5 @@
+django>=6.0
+django-mongodb-backend
+django-mongodb-extensions
+django-debug-toolbar
+python-dotenv

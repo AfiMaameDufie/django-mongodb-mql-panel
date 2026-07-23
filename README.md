@@ -2,8 +2,6 @@
 
 A World Cup 2026 analytics app built with Django and MongoDB.
 
-**Repository:** https://github.com/AfiMaameDufie/django-mongodb-mql-panel — feel free to fork it or clone it as-is to get started.
-
 ## Prerequisites
 
 - Python 3.13+
@@ -15,16 +13,16 @@ A World Cup 2026 analytics app built with Django and MongoDB.
 1. Clone the repo and create a virtual environment:
 
 ```bash
-git clone https://github.com/AfiMaameDufie/django-mongodb-mql-panel.git
-cd django-mongodb-mql-panel
+git clone https://github.com/AfiMaameDufie/django-mongodb-world-cup
+cd django-mongodb-world-cup
 python -m venv venv
 source venv/bin/activate
 ```
 
-2. Install dependencies:
+2.Install dependencies:
 
 ```bash
-pip install -e .
+pip install -r requirements.txt
 ```
 
 This installs all required packages defined in `pyproject.toml`:
@@ -35,23 +33,23 @@ This installs all required packages defined in `pyproject.toml`:
 - `django-debug-toolbar`
 - `python-dotenv`
 
-3. Create a `.env` file with your MongoDB connection string:
+3.Create a `.env` file with your MongoDB connection string:
 
 ```bash
 MONGODB_URI="mongodb+srv://<username>:<password>@<cluster>.mongodb.net/worldcup?retryWrites=true&w=majority"
 ```
 
-4. Run migrations and load data:
+4.Run migrations and load data:
 
 ```bash
 python manage.py migrate
 python manage.py load_matches
 ```
 
-5. Start the server:
+5.Start the server:
 
 ```bash
 python manage.py runserver
 ```
 
-6. Visit [http://localhost:8000](http://localhost:8000) and use the Django Debug Toolbar's MQL panel to inspect queries.
+6.Visit [http://localhost:8000](http://localhost:8000) and use the Django Debug Toolbar's MQL panel to inspect queries.
