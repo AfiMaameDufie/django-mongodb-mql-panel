@@ -5,12 +5,6 @@ from django.shortcuts import render
 from .models import Match
 
 
-def _get_collection():
-    conn = connections['default']
-    conn.ensure_connection()
-    return conn.get_collection("world_cup_match")
-
-
 def tournament_goals(request):
     """Pipeline 1 — built-in aggregate: total goals across completed matches."""
     result = (
@@ -33,9 +27,8 @@ def top_scorers(request):
         {"$sort": {"total_goals": -1}},
         {"$limit": 10},
     ]
-    collection = _get_collection()
-    results = list(collection.aggregate(pipeline))
-    scorers = [{"name": r["_id"], "goals": r["total_goals"]} for r in results]
+    results = Match.objects.raw_aggregate(pipeline)
+    scorers = [{"name": r.pk, "goals": r.total_goals} for r in results]
     return render(request, "world_cup/scorers.html", {"scorers": scorers})
 
 
@@ -87,11 +80,10 @@ def _execute_query(query_text):
             {"$sort": {"total_goals": -1}},
             {"$limit": 10},
         ]
-        collection = _get_collection()
-        results = list(collection.aggregate(pipeline))
+        results = Match.objects.raw_aggregate(pipeline)
         return {
             "query": "db.world_cup_match.aggregate([{$project: {goals: {$concatArrays: ['$goals1', '$goals2']}}}, {$unwind: '$goals'}, {$match: {'goals.own_goal': {$ne: true}}}, {$group: {_id: '$goals.name', total_goals: {$sum: 1}}}, {$sort: {total_goals: -1}}, {$limit: 10}])",
-            "results": [{"scorer": r["_id"], "goals": r["total_goals"]} for r in results],
+            "results": [{"scorer": r.pk, "goals": r.total_goals} for r in results],
         }
 
     if q.startswith("team "):
@@ -138,11 +130,10 @@ def _execute_query(query_text):
             }},
             {"$sort": {"total_goals": -1}},
         ]
-        collection = _get_collection()
-        results = list(collection.aggregate(pipeline))
+        results = Match.objects.raw_aggregate(pipeline)
         return {
             "query": "db.world_cup_match.aggregate([{$match: {ft_score1: {$ne: null}}}, {$group: {_id: '$round', total_goals: {$sum: {$add: ['$ft_score1', '$ft_score2']}}, matches: {$sum: 1}}}, {$sort: {total_goals: -1}}])",
-            "results": [{"round": r["_id"], "goals": r["total_goals"], "matches": r["matches"]} for r in results],
+            "results": [{"round": r.pk, "goals": r.total_goals, "matches": r.matches} for r in results],
         }
 
     return None

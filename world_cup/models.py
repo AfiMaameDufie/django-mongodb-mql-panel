@@ -1,7 +1,4 @@
 from django.db import models
-
-# Create your models here.
-from django.db import models
 from django_mongodb_backend.fields import EmbeddedModelArrayField
 from django_mongodb_backend.managers import MongoManager
 from django_mongodb_backend.models import EmbeddedModel
